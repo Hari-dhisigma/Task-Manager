@@ -1,0 +1,35 @@
+ .buttonAddUser{
+    margin: 5px 0px 0 718px;
+    
+} 
+
+.UserList{
+    text-align: center;
+    margin: 30px 0 0 0px;
+}
+
+.AppUser {
+    width: 100%;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+    
+  table {
+      background-color: white;
+    border: 2px;
+    width: 800px;
+    height: 200px;
+  }
+    
+  th {
+      text-align: center;
+    border: 1px solid black;
+  }
+    
+  td {
+      border: 1px solid black;
+    text-align: center;
+  }

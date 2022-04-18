@@ -1,0 +1,247 @@
+Login API for user Validation
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'ecommerce.c56ayiprrn3s.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : '12345678',
+      database : 'dbTaskManager'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ... nn");
+      }
+      else {
+            console.log("Error connecting database ... nn");
+      }
+});
+
+
+exports.handler = (event, context, callback) => {
+      context.callbackWaitsForEmptyEventLoop = false;
+      //console.log(JSON.stringify(event.body));
+      var test=event.body;
+      console.log(test); 
+      const buf = Buffer.from(test, 'base64');
+      const text = buf.toString('ascii');
+      const input=JSON.parse(text);
+      var Username=input.txtUsername;
+      var Password=input.txtPassword;
+    
+      const sql = "SELECT id FROM tblUsers WHERE txtUsername='"+Username+"' AND txtPassword='"+Password+"';";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        // callback(null,{status:"success",value:result});
+         callback(null,result);
+      });
+    };
+	
+-----------------------------------------------------------------------------------------------------------------------------
+Dashboard Api for updating Task
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'ecommerce.c56ayiprrn3s.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : '12345678',
+      database : 'dbTaskManager'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ...");
+      }
+      else {
+            console.log("Error connecting database ...");
+      }
+});
+
+  
+  exports.handler = (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    
+      var id=event.id;
+      var status=event.txtStatus;
+     
+    const sql = "UPDATE tblLogs SET txtStatus = '"+status+"', dtUpdatedOn = Now() WHERE id='"+id+"'";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        // callback(null,{status:"success",value:result})
+        callback(null,result)
+      });
+    };
+	
+-----------------------------------------------------------------------------------------------------------------------------
+Dashboard Api for fetching Task
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'ecommerce.c56ayiprrn3s.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : '12345678',
+      database : 'dbTaskManager'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ...");
+      }
+      else {
+            console.log("Error connecting database ...");
+      }
+});
+  
+  exports.handler = (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+      var id=event.id;
+    const sql = "SELECT id, txtTitle, dtCreatedOn FROM tblTasks ;";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        // callback(null,{status:"success",value:result})
+        callback(null,result)
+      });
+    };
+	
+-----------------------------------------------------------------------------------------------------------------------------
+Task Api for fetching task
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'projectaws.cf3aagdicnvc.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : 'ajaybarca10123',
+      database : 'dbtask_handler'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ... nn");
+      }
+      else {
+            console.log("Error connecting database ... nn");
+      }
+});
+
+exports.handler = (event, context, callback) => {
+    // var id=event.id;
+    context.callbackWaitsForEmptyEventLoop = false;
+    connection.query("select t.id,t.txtTitle,u.txtUsername,t.dtCreatedOn,l.txtStatus  from  tblUsers u join tblTasks t on refOwner=u.id join 	tblLogs l on l.refTaskId=t.id where t.refAssignedTo=1", function (err, result) {
+        if (err) throw err;
+        callback(null, result);
+      });
+    };
+	
+-----------------------------------------------------------------------------------------------------------------------------
+Api for inserting task 
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'projectaws.cf3aagdicnvc.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : 'ajaybarca10123',
+      database : 'dbtask_handler'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ... nn");
+      }
+      else {
+            console.log("Error connecting database ... nn");
+      }
+});
+
+exports.handler = (event, context, callback) => {
+    // var id=event.id;
+    context.callbackWaitsForEmptyEventLoop = false;
+    console.log(JSON.stringify(event.body));
+      var test=event.body;
+      console.log(test); 
+      const buf = Buffer.from(test, 'base64');
+      const text = buf.toString('ascii');
+      const input=JSON.parse(text);
+      console.log(input)
+      var title=input.txtTitle;
+      var discription=input.txtDescription;
+      var assigned=input.refAssignedTo;
+      var owner=input.refOwner;
+    connection.query("INSERT INTO tblTasks(txtTitle,txtDescription,refAssignedTo,refOwner,dtCreatedOn) VALUES ('"+title+"','"+discription+"','"+assigned+"','"+owner+"',now())", function (err, result) {
+        if (err) throw err;
+        callback(null, result);
+      });
+    };
+
+-----------------------------------------------------------------------------------------------------------------------------
+Api for fetching user  
+
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'ecommerce.c56ayiprrn3s.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : '12345678',
+      database : 'dbTaskManager'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ... nn");
+      }
+      else {
+            console.log("Error connecting database ... nn");
+      }
+});
+
+
+exports.handler = (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    const sql = "SELECT id, txtUsername, txtRole, dtCreatedOn, dtUpdatedOn, bDeleteFlag FROM tblUsers;";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        // callback(null,{status:"success",value:result})
+        callback(null,result)
+      });
+    };
+
+-----------------------------------------------------------------------------------------------------------------------------
+Api for user insert
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+      host     : 'ecommerce.c56ayiprrn3s.us-west-2.rds.amazonaws.com',
+      user     : 'admin',
+      password : '12345678',
+      database : 'dbTaskManager'
+});
+connection.connect(function(err){
+      if(!err) {
+            console.log("Database is connected ... nn");
+      }
+      else {
+            console.log("Error connecting database ... nn");
+      }
+});
+
+
+exports.handler = (event, context, callback) => {
+      // return callback(null,"hello")
+       context.callbackWaitsForEmptyEventLoop = false;
+      console.log(JSON.stringify(event.body));
+      var test=event.body;
+      console.log(test); 
+      const buf = Buffer.from(test, 'base64');
+      const text = buf.toString('ascii');
+      const input=JSON.parse(text);
+      console.log(input)
+     
+      var Username=input.txtUsername;
+      
+      var Password=input.txtPassword;
+      
+      var Role=input.txtRole;
+
+          const sql = "INSERT INTO tblUsers(txtUsername,txtPassword,txtRole,dtCreatedOn,dtUpdatedOn,bDeleteFlag) VALUES ('"+Username+"','"+Password+"','"+Role+"',Now(),Now(),0)";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        // callback(null,{status:"success",value:result});
+         callback(null,{status:"success",value:result});
+      });
+    };
+	
+	
+ 

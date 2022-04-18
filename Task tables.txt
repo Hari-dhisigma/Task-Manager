@@ -1,0 +1,55 @@
+CREATE DATABASE 
+
+CREATE DATABASE dbTaskManager
+============================================
+CREATE TABLE tblUsers
+
+CREATE TABLE tblUsers (
+    id INT NOT NULL AUTO_INCREMENT,
+    txtUsername VARCHAR(50) NOT NULL,
+    txtPassword VARCHAR(50) NOT NULL,
+	txtRole VARCHAR(50) NOT NULL,
+    dtCreatedOn DATETIME,
+    dtUpdatedOn DATETIME,
+	bDeleteFlag BOOLEAN,
+    PRIMARY KEY (id)
+);
+============================================
+CREATE TABLE tblTasks
+
+CREATE TABLE tblTasks (
+    id INT NOT NULL AUTO_INCREMENT,
+    txtTitle VARCHAR(50) NOT NULL,
+    txtDescription VARCHAR(50) NOT NULL,
+	refAssignedTo INT,
+	refOwner INT,
+    dtCreatedOn DATETIME,
+    dtUpdatedOn DATETIME,
+	bDeleteFlag BOOLEAN,
+    PRIMARY KEY (id),
+	    FOREIGN KEY (refAssignedTo)
+        REFERENCES tblUsers (id),
+    FOREIGN KEY (refOwner)
+        REFERENCES tblUsers (id)
+   
+);
+============================================
+CREATE TABLE tblLogs
+
+CREATE TABLE tblLogs (
+    id INT NOT NULL AUTO_INCREMENT,
+    txtStatus VARCHAR(50) NOT NULL,
+    refTaskOwner INT,
+    refTaskId INT,
+	refAssignedUser INT,
+    dtCreatedOn DATETIME,
+    dtUpdatedOn DATETIME,
+    bDeleteFlag BOOLEAN,
+    PRIMARY KEY (id),
+    FOREIGN KEY (refTaskOwner)
+        REFERENCES tblUsers (id),
+    FOREIGN KEY (refAssignedUser)
+        REFERENCES tblUsers (id),		
+    FOREIGN KEY (refTaskId)
+        REFERENCES tblTasks (id)
+);

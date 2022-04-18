@@ -1,0 +1,51 @@
+Task API for user validation
+
+Request
+{
+"txtUsername":"Arun",
+"txtPassword":"123"
+}
+
+Response
+{
+  "status": "success",
+  "values": {
+"txtUsername":"Arun"
+}
+}
+=====================================
+Task API for user fetch
+
+Request
+{
+
+}
+
+Response
+{
+  "status": "success",
+  "values": {
+"id":1,
+"txtUsername":"Arun",
+"txtPassword":"123",
+"txtRole":"Manager",
+"dtCreatedOn":
+dtUpdatedOn":
+"bDeleteFlag":
+}
+}
+=====================================
+Task API for user insert
+
+Request
+{
+"id":1,
+"txtUsername":"Arun",
+"txtPassword":"123",
+"txtRole":"Manager"
+}
+
+Response
+{
+  "status": "success"
+}
