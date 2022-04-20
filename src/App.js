@@ -10,6 +10,8 @@ import AddUser from "./AddUser";
 import Dashboard from "./MyDashboard";
 import Tasklist from "./Tasklist";
 import AddTask from "./AddTask";
+import Kanban from "./Kanban";
+
 class App extends Component {
   constructor() {
     super();
@@ -46,9 +48,10 @@ class App extends Component {
               <Route path="/" element={<Login />} />
               <Route path="/User" element={<User />} />
               <Route path="/AddUser" element={<AddUser />} />
-              <Route path="/Dashboard" element={<Dashboard />} />
+              <Route path="/MyDashboard" element={<Dashboard />} />
               <Route path="/Task" element={<Tasklist />} />
               <Route path="/AddTask" element={<AddTask />} />
+              <Route path="/Dashboard" element={<Kanban />} />
             </Routes>
           </div>
         </Router>

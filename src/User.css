@@ -5,12 +5,12 @@
 
 .UserList{
     text-align: center;
-    margin: 30px 0 0 0px;
+    margin: 30px 0 0 120px;
 }
 
 .AppUser {
     width: 100%;
-    height: 45vh;
+    height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,6 +22,7 @@
     border: 2px;
     width: 800px;
     height: 200px;
+    
   }
     
   th {

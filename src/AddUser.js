@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link,  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AddUser.css';
 import Dashboard from "./MyDashboard";
 
@@ -13,8 +13,19 @@ function AddUser() {
 
     let navigate = useNavigate();
 
+
+   
+    const confirmPass = (e) => {
+      
+      if(RePassword!==Password){
+        alert("password doesnot match")
+      }
+      
+    }
+
+
   const insert = () => {
-    
+    console.log(Password);
     var dt = '{ "txtUsername": "' + Username + '","txtPassword": "' + Password + '", "txtRole": "' + Role + '"}';
     axios.post('https://0qi85ekfvk.execute-api.us-west-2.amazonaws.com/taskUserInsert', dt)
       .then(function (res) {
@@ -34,11 +45,6 @@ function AddUser() {
 
   }, []);
   
-  // const passValidation = (e) => {
-  //   setRePassword(e.target.value)
-  //   if(RePassword!=Password){
-  //     alert("password doesnt match")
-  //   }
 
   return (
     <div><Dashboard/>
@@ -58,15 +64,16 @@ function AddUser() {
 
 <input type="text" class="form-control" id="Username" placeholder="Username" value={Username} onChange={e => setUsername(e.target.value)}></input>
 </div>
+
 <div class="row g-3">
 <div class="col-6">
             <label for="LastName" class="form-label">Password</label>
-            <input type="password" class="form-control" id="Password" placeholder="Password" value={Password} onChange={e => setPassword(e.target.value)} ></input>
+            <input type="password" class="form-control" id="Password" placeholder="Password"  value={Password}  onChange={e => setPassword(e.target.value)} ></input>
           </div>
         </div>
         <div class="col-6">
-          <label for="inputRePassword" class="form-label">RePassword</label>
-          <input type="password" class="form-control" id="inputRePassword" placeholder="RePassword" ></input>
+          <label for="inputRePassword" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="inputRePassword" placeholder=" Confirm Password" value={RePassword}  onChange={e => setRePassword(e.target.value)} onBlur={confirmPass}></input>
         </div>
         </div>
 

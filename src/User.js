@@ -30,7 +30,7 @@ function User() {
       </Link>
       <div className="AppUser">
         <table>
-          <tr>
+          <tr> 
             <th>Id</th>
             <th>Username</th>
             <th>Role</th>

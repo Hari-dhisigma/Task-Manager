@@ -9,9 +9,7 @@ function Login() {
   const [password, setpassword] = useState([]);
   let navigate = useNavigate();
   const loginclick = () => {
-  
-    sessionStorage.setItem('Name', UserName);
-    sessionStorage.setItem('Password', password);
+    sessionStorage.setItem("Password", password);
 
     var dt =
       '{   "txtUsername": "' +
@@ -25,8 +23,9 @@ function Login() {
         dt
       )
       .then(function (res) {
-        console.log(res.data);
+        console.log(res.data[0].id);
         if (res.data.length > 0) {
+          sessionStorage.setItem("id", res.data[0].id);
           navigate("/Dashboard");
         } else {
           alert("Error in username or password");
@@ -37,13 +36,11 @@ function Login() {
       });
   };
   useEffect(() => {}, []);
- 
 
   return (
     <div class="bg">
       <div class="containerLogin">
         <form class="row g-3">
-          
           <h4>Login</h4>
           <div class="col-md-12">
             <label for="inputUsername" class="form-label">
@@ -52,7 +49,7 @@ function Login() {
             <input
               type="text"
               class="form-control"
-              id="inputEmail"
+              id="inputUsername"
               placeholder="Username"
               value={UserName}
               onChange={(e) => setUserName(e.target.value)}
@@ -78,7 +75,6 @@ function Login() {
               Login
             </button>
           </div>
-          
         </form>
       </div>
     </div>
